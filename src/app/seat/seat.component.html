@@ -1,0 +1,81 @@
+<div class="container">
+    <main class="innerContainer">
+        <div class="movie">
+            <h3 class="movieTitle">{{movieTitle}}</h3>
+            <div class="movieDetails">{{screen}} - {{time}}</div>
+        </div>
+
+        <!-- Showing a static legend bar -->
+        <div class="legend col-md-12">
+
+            <div class="col-md-6" style="display:inline-flex">
+                <span class="seat freeSeat"></span> FREE
+                <span class="seat reservedSeat"></span> TAKEN
+                <span class="seat selectedSeat"></span> SELECTED
+            </div>
+            <div class="col-md-6 align-left">
+
+                <!-- Action buttons -->
+                <span class="buttonBar marginTop5 btnSection">
+
+                    <button (click)="clearSelected()" [disabled]="selected.length === 0" class="btn btn-default btn-sm">Clear</button>
+                    <button (click)="showSelected()" [disabled]="selected.length === 0" class="btn btn-success btn-sm">Book
+                        Seat</button>
+                        
+                    <!-- Structural directive - only visible on selection -->
+                    <span *ngIf="selected.length > 0" class="font14 marginTB10">
+                        <span class="wordWrap align-left">SEATS RESERVED : {{selected.length}} <span class="count">({{selected}})</span></span>
+                    </span>
+                </span>
+            </div>
+
+                <div class="btn-group btn-sm align-left" role="group" aria-label="Basic example">
+                    <button type="button" class="btn btn-secondary glyphicon glyphicon-zoom-out"  (click) = "getZoom_Idx(-1)" ></button>
+                    <button type="button" class="btn btn-secondary glyphicon" (click) = "getZoom_Idx(0)">Reset</button>
+                    <button type="button" class="btn btn-secondary glyphicon glyphicon-zoom-in" (click) = "getZoom_Idx(1)" ></button>
+                  </div>
+{{Zoom_Idx}}
+
+
+        </div>
+    
+
+        <div class="screen"></div>        
+
+
+
+        <div class="FloorMap"> 
+            
+            <table class="" [style.line-height.px] = "Zoom_Idx*3 + 5" >
+                <tbody>
+                    <tr *ngFor="let cols of seats; let x = index;">
+                        
+                        <td *ngFor="let row of cols; let y = index;" 
+                            (click)="seatClicked(seats[x][y])" 
+                            
+                            [ngClass]="getCellsBdrCss(x,y)" 
+                            
+                            [style.background-color] = "getCabinColor(x,y)" 
+                            [ngSwitch]="getStatus(x,y)" >
+                           <span class="seat" 
+                                [style.visibility] = "cabinCellsHide(x,y)" 
+                                [style.width.px] = "Zoom_Idx*4.5 + 15" 
+                                [style.font-size.px] = "Zoom_Idx*.7 + 2"
+                                >
+                               
+                               <span *ngSwitchCase="'selected'" class="selectedSeat card">{{ seats[x][y]}}</span>
+                               <span *ngSwitchCase="'reserved'" class="reservedSeat  card">{{seats[x][y]}} </span>
+                               <span *ngSwitchCase="'freeSeat'" class="freeSeat card "> {{seats[x][y] }}  </span>      
+                               <span *ngSwitchCase="'noSeat'" class=" card"> {{seats[x][y]}} </span>      
+                               <span *ngSwitchDefault class=" card">{{seats[x][y]}} </span>
+                           </span>
+                        </td> 
+
+                    </tr>
+                </tbody>
+        
+            </table>
+        </div>
+
+    </main>
+</div>
