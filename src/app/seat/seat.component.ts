@@ -6,7 +6,7 @@ import { FloormapdataService } from './floormapdata.service';
 @Component({
     selector: 'seat-list',
     templateUrl: './seat.component.html',
-    styleUrls: ['./seat.component.css']
+    styleUrls: ['./seat.component.scss']
     // ,
     // providers: [FloormapdataService]
 })

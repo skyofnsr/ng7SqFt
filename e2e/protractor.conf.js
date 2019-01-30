@@ -12,7 +12,7 @@ exports.config = {
     'browserName': 'chrome'
   },
   directConnect: true,
-  baseUrl: 'http://localhost:4200/',
+  baseUrl: 'https://skyofnsr.github.io/SqFt_BookIt/',
   framework: 'jasmine',
   jasmineNodeOpts: {
     showColors: true,
